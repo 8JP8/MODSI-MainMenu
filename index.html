@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestão e Visualização de Indicadores</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            overflow: hidden;
+            background-color: #121212;
+            color: #ffffff;
+        }
+        
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header {
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .title {
+            font-size: 3.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 150, 255, 0.7);
+            background: linear-gradient(90deg, #4287f5, #42c5f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 3s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { text-shadow: 0 0 10px rgba(0, 150, 255, 0.7); }
+            50% { text-shadow: 0 0 20px rgba(0, 150, 255, 0.9); }
+            100% { text-shadow: 0 0 10px rgba(0, 150, 255, 0.7); }
+        }
+        
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .menu-btn {
+            width: 450px;
+            padding: 1.2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: rgba(30, 30, 40, 0.85);
+            color: white;
+            border: 2px solid #4287f5;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px rgba(66, 135, 245, 0.7);
+            box-shadow: 0 0 15px rgba(66, 135, 245, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(66, 135, 245, 0.4),
+                transparent
+            );
+            transition: 0.5s;
+        }
+        
+        .menu-btn:hover {
+            background: rgba(40, 40, 60, 0.95);
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(66, 135, 245, 0.8);
+        }
+        
+        .menu-btn:hover:before {
+            left: 100%;
+        }
+        
+        .menu-btn:active {
+            transform: translateY(0);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(20, 20, 30, 0.7);
+            border-top: 1px solid rgba(66, 135, 245, 0.5);
+        }
+        
+        .repo-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        
+        .github-link {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: rgba(30, 30, 40, 0.8);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: 1px solid rgba(66, 135, 245, 0.5);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .github-link i {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .github-link:hover {
+            background: rgba(66, 135, 245, 0.3);
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+            }
+            
+            .menu-btn {
+                width: 90%;
+                max-width: 350px;
+            }
+            
+            .repo-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bg-canvas"></canvas>
+    
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Sistema de Gestão e Visualização de Indicadores</h1>
+        </div>
+        
+        <div class="buttons">
+            <a href="dashboard.html" class="menu-btn">Dashboard</a>
+            <a href="vr-visualizations.html" class="menu-btn">VR Visualizations</a>
+        </div>
+        
+        <div class="footer">
+            <div class="repo-links">
+                <a href="https://github.com/8JP8/MODSI-VRVisualization" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i>MODSI-VRVisualization
+                </a>
+                <a href="https://github.com/8JP8/MODSI-WebApp" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i>MODSI-WebApp
+                </a>
+                <a href="https://github.com/8JP8/MODSI-SQLRestAPI" class="github-link" target="_blank">
+                    <i class="fab fa-github"></i>MODSI-SQLRestAPI
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Three.js dynamic background
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        
+        // Create dynamic 3D bar graph
+        const bars = [];
+        const barCount = 30;
+        const barMaxHeight = 5;
+        const spacing = 1.2;
+        const areaSize = Math.sqrt(barCount) * spacing;
+        
+        // Create bars with random heights
+        for (let i = 0; i < barCount; i++) {
+            const x = (i % Math.sqrt(barCount)) * spacing - (areaSize / 2);
+            const z = Math.floor(i / Math.sqrt(barCount)) * spacing - (areaSize / 2);
+            const height = Math.random() * barMaxHeight + 0.5;
+            
+            const geometry = new THREE.BoxGeometry(0.5, height, 0.5);
+            const material = new THREE.MeshPhongMaterial({
+                color: new THREE.Color(0.2 + Math.random() * 0.2, 0.4 + Math.random() * 0.3, 0.7 + Math.random() * 0.3),
+                transparent: true,
+                opacity: 0.8,
+                shininess: 80
+            });
+            
+            const bar = new THREE.Mesh(geometry, material);
+            bar.position.set(x, height / 2, z);
+            bar.userData = {
+                targetHeight: height,
+                speed: 0.01 + Math.random() * 0.03
+            };
+            scene.add(bar);
+            bars.push(bar);
+        }
+        
+        // Add a plane as a base
+        const planeGeometry = new THREE.PlaneGeometry(areaSize * 1.5, areaSize * 1.5);
+        const planeMaterial = new THREE.MeshPhongMaterial({
+            color: 0x111122,
+            transparent: true,
+            opacity: 0.7,
+            side: THREE.DoubleSide
+        });
+        const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        plane.rotation.x = -Math.PI / 2;
+        scene.add(plane);
+        
+        // Add ambient and directional light
+        const ambientLight = new THREE.AmbientLight(0x404040, 1);
+        scene.add(ambientLight);
+        
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 10, 5);
+        scene.add(directionalLight);
+        
+        // Position camera
+        camera.position.set(0, 7, 14);
+        camera.lookAt(0, 2, 0);
+        
+        // Animation
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Rotate the scene slightly
+            scene.rotation.y += 0.002;
+            
+            // Animate bar heights
+            bars.forEach(bar => {
+                if (Math.random() < 0.01) {
+                    bar.userData.targetHeight = Math.random() * barMaxHeight + 0.5;
+                }
+                
+                const currentHeight = bar.scale.y * bar.geometry.parameters.height;
+                const targetHeight = bar.userData.targetHeight;
+                const diff = targetHeight - currentHeight;
+                
+                if (Math.abs(diff) > 0.01) {
+                    bar.scale.y += Math.sign(diff) * bar.userData.speed;
+                    bar.position.y = bar.scale.y * bar.geometry.parameters.height / 2;
+                }
+            });
+            
+            renderer.render(scene, camera);
+        }
+        
+        animate();
+        
+        // Responsive handling
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
