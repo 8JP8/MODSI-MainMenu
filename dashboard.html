@@ -137,25 +137,35 @@
     </div>
   </div>
 
+   <div id="built-on-appsmith" class="fixed hidden right-8 z-3 md:flex bottom-4">
+    <a class="hover:no-underline" href="https://appsmith.com" rel="noreferrer" target="_blank">
+      <span class="sc-iyRtqp ihgTrS flex items-center p-1 px-2 space-x-2 w-max backdrop-blur-xl backdrop-filter">
+        <h4 class="sc-bcXHqe dJiDkj ads-v2-text" kind="body-m">Built on</h4>
+        <svg xmlns="http://www.w3.org/2000/svg" width="783" height="131" fill="none" viewBox="0 0 783 131" class="w-auto h-3">
+          <path fill="#1A1A1A" d="M510.51 17.21C509.564 16.309..."></path>
+        </svg>
+      </span>
+    </a>
+  </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const iframe = document.querySelector('iframe');
+      // Define the condition that filters the component out
+      const condition = window.location.pathname.includes("dashboard");  // Example condition
 
-      iframe.onload = function () {
-        console.log('Appsmith dashboard loaded');
-      };
+      // Get the 'built-on-appsmith' div element
+      const appsmithComponent = document.getElementById('built-on-appsmith');
 
-      iframe.onerror = function () {
-        console.error('Error loading the Appsmith dashboard');
-        iframe.parentElement.innerHTML = `
-          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
-            <h2>Erro ao carregar o dashboard</h2>
-            <p>Não foi possível carregar o dashboard Appsmith. Por favor, verifique sua conexão ou tente novamente mais tarde.</p>
-            <button onclick="location.reload()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: rgba(66, 135, 245, 0.7); color: white; border: none; border-radius: 5px; cursor: pointer;">Tentar Novamente</button>
-          </div>
-        `;
-      };
+      // If the condition matches (e.g., user is on a page with "dashboard" in the URL), hide the component
+      if (condition) {
+        appsmithComponent.style.display = 'none'; // Hide the component
+      } else {
+        // Ensure it's visible if condition does not match
+        appsmithComponent.style.display = 'flex'; 
+      }
     });
   </script>
+</body>
+</html>
 </body>
 </html>
