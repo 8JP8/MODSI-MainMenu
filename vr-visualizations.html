@@ -85,17 +85,17 @@
         }
         
         .iframe-container {
-            flex-grow: 1;
             position: relative;
-            height: calc(100vh - 70px);
-        }
-        
-        iframe {
+            height: calc(100vh - 70px); /* full space under header */
+            overflow: hidden; /* This cuts anything beyond container height */
+            }
+
+            iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: calc(100% + 80px); /* Extend 20px beyond container */
             border: none;
         }
         
@@ -145,20 +145,7 @@
             // Add loading state if needed
             iframe.onload = function() {
                 console.log('VR Visualization loaded');
-                
-                // Access iframe content after it is loaded
-                try {
-                    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
 
-                    // Hide the specific element inside iframe based on the class
-                    const elementToHide = iframeDocument.querySelector('.fixed.hidden.right-8.z-3.md\\:flex.bottom-4');
-                    if (elementToHide) {
-                        elementToHide.style.display = 'none'; // Hide the element
-                        console.log('Element hidden successfully!');
-                    }
-                } catch (error) {
-                    console.error('Error accessing iframe content:', error);
-                }
             };
             
             iframe.onerror = function() {

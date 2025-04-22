@@ -8,15 +8,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Montserrat', sans-serif;
-        }
-        
+
         body {
+            min-height: 650px; /* Prevent screen height from being too small */
             overflow: hidden;
             background-color: #000000;
             color: #ffffff;
@@ -39,6 +39,7 @@
             padding: 2rem;
             position: relative;
             z-index: 1;
+            padding-bottom: var(--footer-height); /* Dynamically adjust based on footer height */
         }
         
         .header {
@@ -62,9 +63,9 @@
         .authors {
             text-align: center;
             font-size: 1.1rem;
-            margin-bottom: 5rem;
-            font-weight: bold; /* Make text bold */
-            color: #ffffff; /* Set text color to white */
+            margin-top: 2rem; /* Adjust spacing for large screens */
+            font-weight: bold;
+            color: #ffffff;
             line-height: 1.6;
         }
         
@@ -80,6 +81,8 @@
             align-items: center;
             gap: 2rem;
             margin: auto 0; /* Center buttons vertically */
+            position: relative; /* Ensure buttons are positioned relative to their container */
+            z-index: 2; /* Higher z-index to overlay the footer image */
         }
         
         .menu-btn {
@@ -136,47 +139,65 @@
         }
         
         .footer {
-            text-align: center;
-            padding: 1rem;
+            display: flex;
+            justify-content: space-between; /* Space between buttons and logo */
+            align-items: center; /* Align items vertically */
+            padding: 0.3rem; /* Reduce padding */
             background: rgba(20, 20, 30, 0.7);
             border-top: 1px solid rgba(66, 135, 245, 0.5);
-            position: fixed; /* Stick footer to the bottom */
+            position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
+            font-size: 0.9rem;
+            height: auto; /* Allow height to adjust dynamically */
+            box-sizing: border-box; /* Include padding in height calculation */
+            z-index: 1; /* Ensure footer stays above background but below buttons */
         }
-        
+
         .repo-links {
             display: flex;
-            justify-content: left;
-            gap: 1rem;
+            justify-content: center; /* Center the links */
+            gap: 0.5rem; /* Reduce gap for smaller screens */
             flex-wrap: wrap;
-            margin-top: 0rem;
+            margin: 0; /* Remove any margin around the links */
+            padding-bottom: 0; /* Remove padding at the bottom */
         }
-        
+
+        .repo-links h4 {
+            margin-bottom: 0.2rem; /* Reduce space above repository buttons */
+        }
+
         .github-link {
             display: flex;
             align-items: center;
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.8rem; /* Smaller padding for buttons */
             background: rgba(30, 30, 40, 0.8);
             color: white;
             text-decoration: none;
             border-radius: 5px;
             border: 1px solid rgba(66, 135, 245, 0.5);
             transition: all 0.3s ease;
-            font-size: 0.9rem;
+            font-size: 0.8rem; /* Smaller font size for buttons */
         }
-        
+
         .github-link i {
             margin-right: 0.5rem;
-            font-size: 1.2rem;
+            font-size: 1rem; /* Adjust icon size */
         }
-        
-        .github-link:hover {
-            background: rgba(66, 135, 245, 0.3);
-            transform: translateY(-3px);
+
+        .footer-img {
+            display: flex;
+            align-items: center; /* Center the image vertically */
+            margin-left: auto; /* Push the image to the right */
+            z-index: 0; /* Lower z-index to allow buttons to overlay */
         }
-        
+
+        .footer-img img {
+            width: 100px; /* Set the image width */
+            height: auto;
+        }
+
         @media (max-width: 768px) {
             .title {
                 font-size: 2rem;
@@ -193,10 +214,148 @@
                 align-items: center;
                 gap: 1rem;
             }
-            
-            .authors {
-                font-size: 0.9rem;
+
+            .footer {
+                flex-direction: column; /* Stack content vertically on smaller screens */
+                align-items: center;
+                padding: 0.2rem; /* Reduce padding further */
+                font-size: 0.8rem;
             }
+
+            .repo-links {
+                justify-content: center;
+                gap: 0.3rem; /* Reduce gap for smaller screens */
+                padding-bottom: 0; /* Ensure no extra space at the bottom */
+                flex-direction: column;
+                align-items: center;
+                gap: 0.3rem; /* Reduce gap for better spacing */
+            }
+
+            .footer-img {
+                margin-top: 0.5rem; /* Add spacing above the image */
+            }
+
+            .authors {
+                font-size: 0.9rem; /* Adjust font size for smaller screens */
+                margin-top: 5rem;
+                margin-bottom: 2rem; /* Ensure spacing above the footer */
+                font-size: 0.9rem;
+                margin-top: calc(1.5rem + var(--footer-height)); /* Adjust spacing for smaller screens */
+            }
+            }
+
+            .container {
+                padding-bottom: 6rem; /* Adjust space for smaller footer */
+            }
+
+            .buttons {
+                gap: 1.5rem; /* Reduce gap between buttons */
+            }
+
+            .menu-btn {
+                width: 90%;
+                max-width: 350px;
+                padding: 1rem;
+                font-size: 1.2rem;
+            }
+
+            .github-link {
+                padding: 0.3rem 0.6rem; /* Further reduce padding */
+                font-size: 0.7rem; /* Smaller font size */
+            }
+
+            .github-link i {
+                font-size: 0.9rem; /* Adjust icon size */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer {
+                padding: 0.1rem; /* Minimal padding for very small screens */
+                font-size: 0.7rem;
+            }
+
+            .footer-img img {
+                width: 70px; /* Further reduce image size */
+            }
+
+            .footer {
+                font-size: 0.7rem; /* Even smaller font size for very small screens */
+                padding: 0.2rem; /* Minimal padding */
+                --footer-height: 2rem; /* Further reduce footer height */
+            }
+
+            .authors {
+                font-size: 0.8rem; /* Adjust font size for very small screens */
+                margin-top: calc(1rem + var(--footer-height)); /* Adjust spacing for very small screens */
+            }
+
+            .container {
+                padding-bottom: 7rem; /* Adjust space for very small screens */
+            }
+
+            .buttons {
+                gap: 1rem; /* Further reduce gap between buttons */
+            }
+
+            .menu-btn {
+                width: 100%;
+                max-width: 300px;
+                padding: 0.8rem;
+                font-size: 1rem;
+            }
+
+            .github-link {
+                padding: 0.2rem 0.5rem; /* Minimal padding */
+                font-size: 0.6rem; /* Smaller font size */
+            }
+
+            .github-link i {
+                font-size: 0.8rem; /* Adjust icon size */
+            }
+        }
+
+        @media (max-height: 600px) {
+            .footer {
+                display: none; /* Hide the footer completely for small heights */
+            }
+
+            .container {
+                padding-bottom: 2rem; /* Reduce padding for small heights */
+            }
+
+            .authors {
+                margin-top: 3rem; /* Add more space above authors */
+            }
+
+            .buttons {
+                gap: 1.5rem; /* Reduce gap between buttons */
+            }
+
+            .menu-btn {
+                width: 90%;
+                max-width: 350px;
+                padding: 1rem;
+                font-size: 1.2rem;
+            }
+        }
+
+        .isep-logo {
+            position: fixed; /* Make it an overlay */
+            bottom: -5px; /* Position it near the bottom */
+            right: 10px; /* Position it near the right */
+            z-index: 10; /* Ensure it stays above other elements */
+            display: block;
+        }
+
+        .isep-logo img {
+            width: 90px; /* Set the image width */
+            height: auto;
+            transition: transform 0.3s ease; /* Add a hover effect */
+        }
+
+        .isep-logo img:hover {
+            transform: scale(1.1); /* Slightly enlarge on hover */
         }
     </style>
 </head>
@@ -232,12 +391,15 @@
                 <a href="https://github.com/8JP8/MODSI-SQLRestAPI" class="github-link" target="_blank">
                     <i class="fab fa-github"></i>MODSI-SQLRestAPI
                 </a>
-                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.isep.ipp.pt%2Fimages%2FISEP_marca_cor.png&f=1&nofb=1&ipt=7ec331b5d83fc130971b963e0041be43076a501fa2acada4e197ca726326bb2b"
-                    alt="ISEP Logo" 
-                    style="width: 100px; height: auto; margin-left: auto; margin-bottom: -10px;">
             </div>
         </div>
     </div>
+
+    <!-- ISEP Logo Overlay -->
+    <a href="https://isep.ipp.pt" target="_blank" class="isep-logo">
+        <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.isep.ipp.pt%2Fimages%2FISEP_marca_cor.png&f=1&nofb=1&ipt=7ec331b5d83fc130971b963e0041be43076a501fa2acada4e197ca726326bb2b"
+            alt="ISEP Logo">
+    </a>
     
     <script>
         // Three.js dynamic background
