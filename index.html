@@ -441,10 +441,8 @@
 
         // Add a plane as a base
         const planeGeometry = new THREE.PlaneGeometry(areaSize * 1.5, areaSize * 1.5);
-        const planeMaterial = new THREE.MeshPhongMaterial({
+        const planeMaterial = new THREE.MeshBasicMaterial({
             color: 0x000000, // Black floor
-            transparent: true,
-            opacity: 0.7,
             side: THREE.DoubleSide
         });
         const plane = new THREE.Mesh(planeGeometry, planeMaterial);
