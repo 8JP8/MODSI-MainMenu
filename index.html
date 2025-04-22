@@ -18,7 +18,7 @@
         
         body {
             overflow: hidden;
-            background-color: #121212;
+            background-color: #000000;
             color: #ffffff;
         }
         
@@ -59,6 +59,15 @@
             animation: pulse 3s infinite;
         }
         
+        .authors {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 5rem;
+            font-weight: bold; /* Make text bold */
+            color: #ffffff; /* Set text color to white */
+            line-height: 1.6;
+        }
+        
         @keyframes pulse {
             0% { text-shadow: 0 0 10px rgba(0, 150, 255, 0.7); }
             50% { text-shadow: 0 0 20px rgba(0, 150, 255, 0.9); }
@@ -70,10 +79,11 @@
             flex-direction: column;
             align-items: center;
             gap: 2rem;
-            margin: 3rem 0;
+            margin: auto 0; /* Center buttons vertically */
         }
         
         .menu-btn {
+            text-decoration: none; /* Remove underline from button text */
             width: 450px;
             padding: 1.2rem;
             font-size: 1.5rem;
@@ -89,6 +99,10 @@
             box-shadow: 0 0 15px rgba(66, 135, 245, 0.5);
             position: relative;
             overflow: hidden;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         .menu-btn:before {
@@ -126,14 +140,18 @@
             padding: 1rem;
             background: rgba(20, 20, 30, 0.7);
             border-top: 1px solid rgba(66, 135, 245, 0.5);
+            position: fixed; /* Stick footer to the bottom */
+            bottom: 0;
+            left: 0;
+            width: 100%;
         }
         
         .repo-links {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
+            justify-content: left;
+            gap: 1rem;
             flex-wrap: wrap;
-            margin-top: 1rem;
+            margin-top: 0rem;
         }
         
         .github-link {
@@ -167,12 +185,17 @@
             .menu-btn {
                 width: 90%;
                 max-width: 350px;
+                align-items: center;
             }
             
             .repo-links {
                 flex-direction: column;
                 align-items: center;
                 gap: 1rem;
+            }
+            
+            .authors {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -189,9 +212,17 @@
             <a href="dashboard.html" class="menu-btn">Dashboard</a>
             <a href="vr-visualizations.html" class="menu-btn">VR Visualizations</a>
         </div>
+
+        <div class="authors">
+            João Oliveira - 1240369<br>
+            Rui Costa - 1210971<br>
+            Simão Soares - 1211630<br>
+            <br>
+        </div>
         
         <div class="footer">
             <div class="repo-links">
+                <h4 style="align-self: center;">Repositórios:</h4>
                 <a href="https://github.com/8JP8/MODSI-VRVisualization" class="github-link" target="_blank">
                     <i class="fab fa-github"></i>MODSI-VRVisualization
                 </a>
@@ -201,6 +232,9 @@
                 <a href="https://github.com/8JP8/MODSI-SQLRestAPI" class="github-link" target="_blank">
                     <i class="fab fa-github"></i>MODSI-SQLRestAPI
                 </a>
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.isep.ipp.pt%2Fimages%2FISEP_marca_cor.png&f=1&nofb=1&ipt=7ec331b5d83fc130971b963e0041be43076a501fa2acada4e197ca726326bb2b"
+                    alt="ISEP Logo" 
+                    style="width: 100px; height: auto; margin-left: auto; margin-bottom: -10px;">
             </div>
         </div>
     </div>
@@ -208,45 +242,45 @@
     <script>
         // Three.js dynamic background
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000); // Adjusted FOV for zoom
         const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        
+
         // Create dynamic 3D bar graph
         const bars = [];
         const barCount = 30;
         const barMaxHeight = 5;
         const spacing = 1.2;
         const areaSize = Math.sqrt(barCount) * spacing;
-        
+
         // Create bars with random heights
         for (let i = 0; i < barCount; i++) {
             const x = (i % Math.sqrt(barCount)) * spacing - (areaSize / 2);
             const z = Math.floor(i / Math.sqrt(barCount)) * spacing - (areaSize / 2);
             const height = Math.random() * barMaxHeight + 0.5;
-            
-            const geometry = new THREE.BoxGeometry(0.5, height, 0.5);
+
+            const geometry = new THREE.BoxGeometry(0.5, 1, 0.5); // Initial height set to 1
             const material = new THREE.MeshPhongMaterial({
                 color: new THREE.Color(0.2 + Math.random() * 0.2, 0.4 + Math.random() * 0.3, 0.7 + Math.random() * 0.3),
                 transparent: true,
                 opacity: 0.8,
                 shininess: 80
             });
-            
+
             const bar = new THREE.Mesh(geometry, material);
             bar.position.set(x, height / 2, z);
             bar.userData = {
                 targetHeight: height,
-                speed: 0.01 + Math.random() * 0.03
+                speed: 0.02 + Math.random() * 0.02 // Smooth speed
             };
             scene.add(bar);
             bars.push(bar);
         }
-        
+
         // Add a plane as a base
         const planeGeometry = new THREE.PlaneGeometry(areaSize * 1.5, areaSize * 1.5);
         const planeMaterial = new THREE.MeshPhongMaterial({
-            color: 0x111122,
+            color: 0x000000, // Black floor
             transparent: true,
             opacity: 0.7,
             side: THREE.DoubleSide
@@ -254,47 +288,47 @@
         const plane = new THREE.Mesh(planeGeometry, planeMaterial);
         plane.rotation.x = -Math.PI / 2;
         scene.add(plane);
-        
+
         // Add ambient and directional light
         const ambientLight = new THREE.AmbientLight(0x404040, 1);
         scene.add(ambientLight);
-        
+
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(5, 10, 5);
         scene.add(directionalLight);
-        
-        // Position camera
-        camera.position.set(0, 7, 14);
+
+        // Position camera closer to the graph
+        camera.position.set(0, 5, 10); // Adjusted for zoom
         camera.lookAt(0, 2, 0);
-        
+
         // Animation
         function animate() {
             requestAnimationFrame(animate);
-            
+
             // Rotate the scene slightly
             scene.rotation.y += 0.002;
-            
-            // Animate bar heights
+
+            // Animate bar heights smoothly
             bars.forEach(bar => {
                 if (Math.random() < 0.01) {
                     bar.userData.targetHeight = Math.random() * barMaxHeight + 0.5;
                 }
-                
-                const currentHeight = bar.scale.y * bar.geometry.parameters.height;
+
+                const currentHeight = bar.scale.y;
                 const targetHeight = bar.userData.targetHeight;
                 const diff = targetHeight - currentHeight;
-                
+
                 if (Math.abs(diff) > 0.01) {
-                    bar.scale.y += Math.sign(diff) * bar.userData.speed;
-                    bar.position.y = bar.scale.y * bar.geometry.parameters.height / 2;
+                    bar.scale.y += diff * bar.userData.speed; // Smooth transition
+                    bar.position.y = (bar.scale.y * bar.geometry.parameters.height) / 2;
                 }
             });
-            
+
             renderer.render(scene, camera);
         }
-        
+
         animate();
-        
+
         // Responsive handling
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
