@@ -126,7 +126,7 @@
 <body>
     <div class="header">
         <a href="index.html" class="back-btn">
-            <i class="fas fa-arrow-left"></i> Voltar
+            <i class="fas fa-arrow-left"></i>&nbsp;Voltar
         </a>
         <h1 class="title">Sistema de Gestão e Visualização de Indicadores - VR Visualizations</h1>
     </div>
@@ -138,14 +138,28 @@
     </div>
     
     <script>
-        // Script to make sure the iframe loads properly
+        // Wait until the iframe content has loaded
         document.addEventListener('DOMContentLoaded', function() {
             const iframe = document.querySelector('iframe');
             
             // Add loading state if needed
             iframe.onload = function() {
                 console.log('VR Visualization loaded');
-            }
+                
+                // Access iframe content after it is loaded
+                try {
+                    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+                    // Hide the specific element inside iframe based on the class
+                    const elementToHide = iframeDocument.querySelector('.fixed.hidden.right-8.z-3.md\\:flex.bottom-4');
+                    if (elementToHide) {
+                        elementToHide.style.display = 'none'; // Hide the element
+                        console.log('Element hidden successfully!');
+                    }
+                } catch (error) {
+                    console.error('Error accessing iframe content:', error);
+                }
+            };
             
             iframe.onerror = function() {
                 console.error('Error loading the VR Visualization');
