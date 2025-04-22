@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Painel de Utilizador - Sistema de Gestão e Visualização de Indicadores</title>
+  <title>Painel de Gestão - Sistema de Gestão e Visualização de Indicadores</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
@@ -129,7 +129,7 @@
     <a href="index.html" class="back-btn">
       <i class="fas fa-arrow-left"></i>&nbsp;Voltar
     </a>
-    <h1 class="title">Painel de Utilizador</h1>
+    <h1 class="title">Painel de Gestão</h1>
   </div>
 
   <div class="content">
@@ -145,7 +145,7 @@
         
         // Add loading state if needed
         iframe.onload = function() {
-            console.log('VR Visualization loaded');
+            console.log('Dashboard page loaded');
 
         };
         
@@ -153,8 +153,8 @@
             console.error('Error loading the VR Visualization');
             iframe.parentElement.innerHTML = `
                 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
-                    <h2>Erro ao carregar as Visualizações VR</h2>
-                    <p>Não foi possível carregar as visualizações VR. Por favor, verifique sua conexão ou tente novamente mais tarde.</p>
+                    <h2>Erro ao carregar a Dashboard</h2>
+                    <p>Não foi possível carregar a Dashboard. Por favor, verifique sua conexão ou tente novamente mais tarde.</p>
                     <button onclick="location.reload()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: rgba(66, 135, 245, 0.7); color: white; border: none; border-radius: 5px; cursor: pointer;">Tentar Novamente</button>
                 </div>
             `;
