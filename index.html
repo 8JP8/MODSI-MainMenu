@@ -14,12 +14,18 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Montserrat', sans-serif;
+        }
+
+        :root {
+            --footer-height: 90px;
+        }
 
         body {
-            min-height: 650px; /* Prevent screen height from being too small */
-            overflow: hidden;
+            min-height: 100vh;
             background-color: #000000;
             color: #ffffff;
+            position: relative;
+            overflow-x: hidden;
         }
         
         #bg-canvas {
@@ -34,12 +40,11 @@
         .container {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             min-height: 100vh;
             padding: 2rem;
             position: relative;
             z-index: 1;
-            padding-bottom: var(--footer-height); /* Dynamically adjust based on footer height */
+            padding-bottom: calc(var(--footer-height) + 1rem);
         }
         
         .header {
@@ -63,10 +68,14 @@
         .authors {
             text-align: center;
             font-size: 1.1rem;
-            margin-top: 2rem; /* Adjust spacing for large screens */
+            margin-top: 2rem;
+            margin-bottom: 2rem;
             font-weight: bold;
             color: #ffffff;
             line-height: 1.6;
+            width: 100%;
+            position: relative;
+            z-index: 10;
         }
         
         @keyframes pulse {
@@ -80,14 +89,17 @@
             flex-direction: column;
             align-items: center;
             gap: 2rem;
-            margin: auto 0; /* Center buttons vertically */
-            position: relative; /* Ensure buttons are positioned relative to their container */
-            z-index: 2; /* Higher z-index to overlay the footer image */
+            margin: auto 0;
+            width: 100%;
+            padding: 1rem 0;
+            position: relative;
+            z-index: 2;
         }
         
         .menu-btn {
-            text-decoration: none; /* Remove underline from button text */
+            text-decoration: none;
             width: 450px;
+            max-width: 90%;
             padding: 1.2rem;
             font-size: 1.5rem;
             font-weight: 700;
@@ -140,9 +152,9 @@
         
         .footer {
             display: flex;
-            justify-content: space-between; /* Space between buttons and logo */
-            align-items: center; /* Align items vertically */
-            padding: 0.3rem; /* Reduce padding */
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
             background: rgba(20, 20, 30, 0.7);
             border-top: 1px solid rgba(66, 135, 245, 0.5);
             position: fixed;
@@ -150,211 +162,246 @@
             left: 0;
             width: 100%;
             font-size: 0.9rem;
-            height: auto; /* Allow height to adjust dynamically */
-            box-sizing: border-box; /* Include padding in height calculation */
-            z-index: 1; /* Ensure footer stays above background but below buttons */
+            min-height: var(--footer-height);
+            z-index: 5;
         }
 
+        
         .repo-links {
             display: flex;
-            justify-content: center; /* Center the links */
-            gap: 0.5rem; /* Reduce gap for smaller screens */
             flex-wrap: wrap;
-            margin: 0; /* Remove any margin around the links */
-            padding-bottom: 0; /* Remove padding at the bottom */
+            justify-content: center;
+            gap: 0.5rem;
+            align-items: center;
         }
 
         .repo-links h4 {
-            margin-bottom: 0.2rem; /* Reduce space above repository buttons */
+            margin-bottom: 0;
+            margin-right: 0.5rem;
+            width: auto;
+            text-align: center;
         }
 
         .github-link {
             display: flex;
             align-items: center;
-            padding: 0.4rem 0.8rem; /* Smaller padding for buttons */
+            padding: 0.4rem 0.8rem;
             background: rgba(30, 30, 40, 0.8);
             color: white;
             text-decoration: none;
             border-radius: 5px;
             border: 1px solid rgba(66, 135, 245, 0.5);
             transition: all 0.3s ease;
-            font-size: 0.8rem; /* Smaller font size for buttons */
+            font-size: 0.8rem;
         }
 
         .github-link i {
             margin-right: 0.5rem;
-            font-size: 1rem; /* Adjust icon size */
+            font-size: 1rem;
         }
 
         .footer-img {
             display: flex;
-            align-items: center; /* Center the image vertically */
-            margin-left: auto; /* Push the image to the right */
-            z-index: 0; /* Lower z-index to allow buttons to overlay */
+            align-items: center;
+            margin-left: auto;
         }
 
         .footer-img img {
-            width: 100px; /* Set the image width */
+            width: 100px;
             height: auto;
         }
 
+        .isep-logo {
+            position: fixed;
+            bottom: 5px;
+            right: 10px;
+            z-index: 10;
+            display: block;
+        }
+
+        .isep-logo img {
+            width: 90px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .isep-logo img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Main responsive breakpoints */
         @media (max-width: 768px) {
             .title {
                 font-size: 2rem;
             }
             
-            .menu-btn {
-                width: 90%;
-                max-width: 350px;
-                align-items: center;
+            .buttons {
+                gap: 1.5rem;
             }
             
-            .repo-links {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-            }
-
-            .footer {
-                flex-direction: column; /* Stack content vertically on smaller screens */
-                align-items: center;
-                padding: 0.2rem; /* Reduce padding further */
-                font-size: 0.8rem;
-            }
-
-            .repo-links {
-                justify-content: center;
-                gap: 0.3rem; /* Reduce gap for smaller screens */
-                padding-bottom: 0; /* Ensure no extra space at the bottom */
-                flex-direction: column;
-                align-items: center;
-                gap: 0.3rem; /* Reduce gap for better spacing */
-            }
-
-            .footer-img {
-                margin-top: 0.5rem; /* Add spacing above the image */
-            }
-
-            .authors {
-                font-size: 0.9rem; /* Adjust font size for smaller screens */
-                margin-top: 5rem;
-                font-size: 0.9rem;
-                margin-top: calc(1.5rem + var(--footer-height)); /* Adjust spacing for smaller screens */
-            }
-            }
-
-            .container {
-                padding-bottom: 6rem; /* Adjust space for smaller footer */
-            }
-
-            .buttons {
-                gap: 1.5rem; /* Reduce gap between buttons */
-            }
-
             .menu-btn {
                 width: 90%;
-                max-width: 350px;
                 padding: 1rem;
                 font-size: 1.2rem;
             }
-
-            .github-link {
-                padding: 0.3rem 0.6rem; /* Further reduce padding */
-                font-size: 0.7rem; /* Smaller font size */
+            
+            .authors {
+                font-size: 0.9rem;
+                padding: 1rem 0;
+                width: 100%;
+                display: block;
             }
 
-            .github-link i {
-                font-size: 0.9rem; /* Adjust icon size */
+            .footer {
+                flex-direction: column;
+                padding: 0.3rem;
+                min-height: var(--footer-height);
+            }
+
+            .repo-links {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .repo-links h4 {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 0.2rem;
+            }
+
+            .github-link {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.7rem;
+            }
+            
+            .isep-logo {
+                bottom: var(--footer-height);
             }
         }
 
+        /* Small screens */
         @media (max-width: 480px) {
-            .footer {
-                padding: 0.1rem; /* Minimal padding for very small screens */
-                font-size: 0.7rem;
+            :root {
+                --footer-height: 120px;
             }
-
-            .footer-img img {
-                width: 70px; /* Further reduce image size */
+            
+            .title {
+                font-size: 1.5rem;
             }
-
-            .footer {
-                font-size: 0.7rem; /* Even smaller font size for very small screens */
-                padding: 0.2rem; /* Minimal padding */
-                --footer-height: 2rem; /* Further reduce footer height */
-            }
-
-            .authors {
-                font-size: 0.8rem; /* Adjust font size for very small screens */
-                margin-top: 1rem; /* Adjust spacing for very small screens */
-            }
-
+            
             .container {
-                padding-bottom: 7rem; /* Adjust space for very small screens */
+                padding: 1rem;
+                padding-bottom: calc(var(--footer-height) + 1rem);
             }
-
-            .buttons {
-                gap: 1rem; /* Further reduce gap between buttons */
+            
+            .authors {
+                font-size: 0.8rem;
+                line-height: 1.4;
+                margin-bottom: 3rem;
+                padding: 0;
             }
-
+            
             .menu-btn {
-                width: 100%;
-                max-width: 300px;
                 padding: 0.8rem;
                 font-size: 1rem;
             }
-
+            
             .github-link {
-                padding: 0.2rem 0.5rem; /* Minimal padding */
-                font-size: 0.6rem; /* Smaller font size */
+                padding: 0.2rem 0.5rem;
+                font-size: 0.6rem;
             }
-
-            .github-link i {
-                font-size: 0.8rem; /* Adjust icon size */
+            
+            .isep-logo img {
+                width: 70px;
             }
         }
 
+        /* Landscape mode */
         @media (max-height: 600px) {
-            .footer {
-                display: none; /* Hide the footer completely for small heights */
+            :root {
+                --footer-height: 60px;
             }
-
+            
+            .header {
+                margin-top: 1rem;
+            }
+            
+            .title {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+            
             .container {
-                padding-bottom: 2rem; /* Reduce padding for small heights */
+                padding: 0.5rem;
+                padding-bottom: calc(var(--footer-height) + 0.5rem);
+                justify-content: center;
             }
-
-            .authors {
-                margin-top: 2rem; /* Add more space above authors */
-            }
-
+            
             .buttons {
-                gap: 1.5rem; /* Reduce gap between buttons */
+                gap: 1rem;
             }
-
+            
             .menu-btn {
-                width: 90%;
-                max-width: 350px;
-                padding: 1rem;
-                font-size: 1.2rem;
+                padding: 0.6rem;
+                font-size: 1rem;
+            }
+            
+            .authors {
+                font-size: 0.7rem;
+                margin-top: 1rem;
+                margin-bottom: calc(var(--footer-height) + 0.5rem);
+                line-height: 1.3;
+            }
+            
+            .footer {
+                min-height: var(--footer-height);
+                flex-direction: row;
+                padding: 0.2rem;
+            }
+            
+            .repo-links {
+                flex-direction: row;
+                width: auto;
+            }
+            
+            .repo-links h4 {
+                width: auto;
+                margin-right: 0.5rem;
+                margin-bottom: 0;
+            }
+            
+            .isep-logo {
+                bottom: calc(var(--footer-height) + 5px);
+                right: 5px;
+            }
+            
+            .isep-logo img {
+                width: 60px;
             }
         }
 
-        .isep-logo {
-            position: fixed; /* Make it an overlay */
-            bottom: -5px; /* Position it near the bottom */
-            right: 10px; /* Position it near the right */
-            z-index: 10; /* Ensure it stays above other elements */
-            display: block;
-        }
-
-        .isep-logo img {
-            width: 90px; /* Set the image width */
-            height: auto;
-            transition: transform 0.3s ease; /* Add a hover effect */
-        }
-
-        .isep-logo img:hover {
-            transform: scale(1.1); /* Slightly enlarge on hover */
+        /* Fix for desktop site in mobile browser */
+        @media screen and (min-width: 1000px) {
+            .authors {
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                font-size: 1.1rem;
+                margin: 2rem 0;
+            }
+            
+            .container {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            
+            .buttons {
+                flex: 1;
+                justify-content: center;
+                margin: 2rem 0;
+            }
         }
     </style>
 </head>
@@ -375,22 +422,21 @@
             João Oliveira - 1240369<br>
             Rui Costa - 1210971<br>
             Simão Soares - 1211630<br>
-            <br>
         </div>
-        
-        <div class="footer">
-            <div class="repo-links">
-                <h4 style="align-self: center;">Repositórios:</h4>
-                <a href="https://github.com/8JP8/MODSI-VRVisualization" class="github-link" target="_blank">
-                    <i class="fab fa-github"></i>MODSI-VRVisualization
-                </a>
-                <a href="https://github.com/8JP8/MODSI-WebApp" class="github-link" target="_blank">
-                    <i class="fab fa-github"></i>MODSI-WebApp
-                </a>
-                <a href="https://github.com/8JP8/MODSI-SQLRestAPI" class="github-link" target="_blank">
-                    <i class="fab fa-github"></i>MODSI-SQLRestAPI
-                </a>
-            </div>
+    </div>
+    
+    <div class="footer">
+        <div class="repo-links">
+            <h4>Repositórios:</h4>
+            <a href="https://github.com/8JP8/MODSI-VRVisualization" class="github-link" target="_blank">
+                <i class="fab fa-github"></i>MODSI-VRVisualization
+            </a>
+            <a href="https://github.com/8JP8/MODSI-WebApp" class="github-link" target="_blank">
+                <i class="fab fa-github"></i>MODSI-WebApp
+            </a>
+            <a href="https://github.com/8JP8/MODSI-SQLRestAPI" class="github-link" target="_blank">
+                <i class="fab fa-github"></i>MODSI-SQLRestAPI
+            </a>
         </div>
     </div>
 
@@ -403,7 +449,7 @@
     <script>
         // Three.js dynamic background
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000); // Adjusted FOV for zoom
+        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -420,7 +466,7 @@
             const z = Math.floor(i / Math.sqrt(barCount)) * spacing - (areaSize / 2);
             const height = Math.random() * barMaxHeight + 0.5;
 
-            const geometry = new THREE.BoxGeometry(0.5, 1, 0.5); // Initial height set to 1
+            const geometry = new THREE.BoxGeometry(0.5, 1, 0.5);
             const material = new THREE.MeshPhongMaterial({
                 color: new THREE.Color(0.2 + Math.random() * 0.2, 0.4 + Math.random() * 0.3, 0.7 + Math.random() * 0.3),
                 transparent: true,
@@ -432,7 +478,7 @@
             bar.position.set(x, height / 2, z);
             bar.userData = {
                 targetHeight: height,
-                speed: 0.02 + Math.random() * 0.02 // Smooth speed
+                speed: 0.02 + Math.random() * 0.02
             };
             scene.add(bar);
             bars.push(bar);
@@ -441,7 +487,7 @@
         // Add a plane as a base
         const planeGeometry = new THREE.PlaneGeometry(areaSize * 1.5, areaSize * 1.5);
         const planeMaterial = new THREE.MeshBasicMaterial({
-            color: 0x000000, // Black floor
+            color: 0x000000,
             side: THREE.DoubleSide
         });
         const plane = new THREE.Mesh(planeGeometry, planeMaterial);
@@ -456,8 +502,8 @@
         directionalLight.position.set(5, 10, 5);
         scene.add(directionalLight);
 
-        // Position camera closer to the graph
-        camera.position.set(0, 5, 10); // Adjusted for zoom
+        // Position camera
+        camera.position.set(0, 5, 10);
         camera.lookAt(0, 2, 0);
 
         // Animation
@@ -478,7 +524,7 @@
                 const diff = targetHeight - currentHeight;
 
                 if (Math.abs(diff) > 0.01) {
-                    bar.scale.y += diff * bar.userData.speed; // Smooth transition
+                    bar.scale.y += diff * bar.userData.speed;
                     bar.position.y = (bar.scale.y * bar.geometry.parameters.height) / 2;
                 }
             });
@@ -493,6 +539,13 @@
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        
+        // Fix for ensuring the authors section is always visible
+        document.addEventListener('DOMContentLoaded', function() {
+            const authorsSection = document.querySelector('.authors');
+            authorsSection.style.display = 'block';
+            authorsSection.style.visibility = 'visible';
         });
     </script>
 </body>
