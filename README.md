@@ -23,4 +23,4 @@ O projeto foi criado utilizando **Appsmith**, **JavaScript**, e **HTML simples**
 
 1. Clone este repositório:
    ```bash
-   git clone https://github.com/seu-usuario/sistema-gestao-indicadores.git
+   git clone https://github.com/8JP8/MODSI-WebApp.git
