@@ -231,32 +231,32 @@
     <h1 class="title">PAINEL DE GESTÃO</h1>
   </div>
 
-  <div class="content">
-    <div class="iframe-container">
-      <iframe src="https://app.appsmith.com/app/modsi-webapp/login-680293a6527ce239256c61db?branch=master&embed=true" allowfullscreen></iframe>
-    </div>
+  <div class="iframe-container">
+    <div id="loading-overlay" style="position:absolute; top:0; left:0; right:0; bottom:0; background:black; z-index:99;"></div>
+    <iframe id="dashboard-iframe" src="https://app.appsmith.com/app/modsi-webapp/login-680293a6527ce239256c61db?branch=master&embed=true" allowfullscreen style="display: none;"></iframe>
   </div>
-
+  
   <script>
-    // Wait until the iframe content has loaded
-    document.addEventListener('DOMContentLoaded', function() {
-        const iframe = document.querySelector('iframe');
-        
-        // Add loading state if needed
-        iframe.onload = function() {
-            console.log('Dashboard page loaded');
-        };
-        
-        iframe.onerror = function() {
-            console.error('Error loading the Dashboard');
-            iframe.parentElement.innerHTML = `
-                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
-                    <h2>Erro ao carregar a Dashboard</h2>
-                    <p>Não foi possível carregar a Dashboard. Por favor, verifique sua conexão ou tente novamente mais tarde.</p>
-                    <button onclick="location.reload()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: rgba(66, 135, 245, 0.7); color: white; border: none; border-radius: 5px; cursor: pointer;">Tentar Novamente</button>
-                </div>
-            `;
-        }
+    document.addEventListener('DOMContentLoaded', function () {
+      const iframe = document.getElementById('dashboard-iframe');
+      const overlay = document.getElementById('loading-overlay');
+  
+      iframe.onload = function () {
+        overlay.style.display = 'none';
+        iframe.style.display = 'block';
+        console.log('Dashboard page loaded');
+      };
+  
+      iframe.onerror = function () {
+        console.error('Error loading the Dashboard');
+        overlay.innerHTML = `
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; color: white;">
+              <h2>Erro ao carregar a Dashboard</h2>
+              <p>Não foi possível carregar a Dashboard. Verifique sua conexão ou tente novamente.</p>
+              <button onclick="location.reload()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: rgba(66, 135, 245, 0.7); color: white; border: none; border-radius: 5px; cursor: pointer;">Tentar Novamente</button>
+          </div>
+        `;
+      };
     });
   </script>
 </body>
