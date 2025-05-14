@@ -225,11 +225,29 @@
 </head>
 <body>
   <div class="header">
-    <a href="index.html" class="back-btn">
+    <a onclick="navigateBack()" class="back-btn">
       <i class="fas fa-arrow-left"></i>&nbsp;Voltar
     </a>
     <h1 class="title">PAINEL DE GESTÃO</h1>
   </div>
+
+  <script>
+    function navigateBack() {
+      // Obtemos o histórico do navegador
+      if (window.history.length > 1) {
+        // Verificamos se o documento de volta é do mesmo domínio
+        const referrer = document.referrer;
+        if (referrer && new URL(referrer).hostname === window.location.hostname) {
+          window.history.back(); // Navega para a página anterior dentro do mesmo domínio
+        } else {
+          window.location.href = "index.html"; // Redireciona para o index.html
+        }
+      } else {
+        // Se não houver histórico para navegar, também redireciona para o index.html
+        window.location.href = "index.html";
+      }
+    }
+  </script>
 
   <div class="iframe-container">
     <div id="loading-overlay" style="position:absolute; top:0; left:0; right:0; bottom:0; background:black; z-index:99;"></div>
